@@ -60,3 +60,7 @@ h1 {
     border-radius:12px;
     margin: 0 auto;
 }
+
+.btn .digit {
+    background-color: blue;
+}
