@@ -30,6 +30,9 @@ h1 {
     margin: 30px auto;
     border-radius:12px;
     border: 2px solid black;
+    font-size: 40px;
+    text-align: right;
+    padding: 0 10px;
 }
 
 .btn {
@@ -39,6 +42,7 @@ h1 {
     border-radius: 12px;
     border: 1px solid black;
     font-size: 40px;
+    background-color: gray;
 }
 
 #buttons {
@@ -49,3 +53,10 @@ h1 {
     justify-content: center;
 }
 
+#clear {
+    display:block;
+    font-size:20px;
+    padding: 8px 20px;
+    border-radius:12px;
+    margin: 0 auto;
+}
