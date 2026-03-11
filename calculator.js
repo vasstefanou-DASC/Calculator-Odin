@@ -121,7 +121,7 @@ calcButtonsArea.querySelector(".result").addEventListener("click", () => {
     result();
 });
 
-function clear () {
+function clear() {
     calcMem.firstOp = "", calcMem.secondOp = "" , calcMem.operator = "", calcMem.result = "";
     calcScreen.textContent = "";
     return calcMem;
@@ -138,3 +138,23 @@ function insertDecimal() {
 }
 
 calcButtonsArea.querySelector(".decimal").addEventListener("click",insertDecimal);
+
+const deleteButton = document.createElement("button");
+deleteButton.setAttribute("id","delete");
+deleteButton.textContent = "BackSpace";
+document.body.appendChild(deleteButton);
+
+function deleteInput() {
+    if (calcMem.operator==="") {
+        calcMem.firstOp = calcMem.firstOp.slice(0,-1);
+    } else if (calcMem.secondOp===""){
+        calcMem.operator = calcMem.operator.slice(0,-1);
+    } else {
+        calcMem.secondOp = calcMem.secondOp.slice(0,-1);
+    }
+    calcScreen.textContent = calcMem.firstOp+" "+calcMem.operator+" "+calcMem.secondOp;
+    console.log(calcMem);
+    return calcMem;
+}
+
+deleteButton.addEventListener("click",deleteInput);

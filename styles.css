@@ -53,7 +53,7 @@ h1 {
     justify-content: center;
 }
 
-#clear {
+#clear , #delete{
     display:block;
     font-size:20px;
     padding: 8px 20px;
@@ -61,6 +61,6 @@ h1 {
     margin: 0 auto;
 }
 
-.btn .digit {
-    background-color: blue;
+#delete {
+    margin-top: 10px;
 }
