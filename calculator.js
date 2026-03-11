@@ -28,13 +28,13 @@ clearButton.textContent = "Clear Calculator";
 document.body.appendChild(clearButton);
 
 function add (a,b){
-    return a + b ;
+    return (a + b).toFixed(2) ;
 }
 function subtract (a,b) {
-    return a - b ;
+    return (a - b).toFixed(2) ;
 }
 function multiply (a,b) {
-    return a*b;
+    return a*b.toFixed(2);
 }
 function divide (a,b) {
     return b===0?"Learn Math!":(a/b).toFixed(2);
@@ -83,7 +83,7 @@ function insertOperator (operatorButton) {
     } else if (calcMem.secondOp==="" && calcMem.firstOp!=="") {
         calcMem.operator = operatorButton;
     } else if (!(calcMem.firstOp===""||calcMem.operator===""||calcMem.secondOp==="")) {
-        calcMem.firstOp = operate(Number(calcMem.firstOp),Number(calcMem.secondOp),calcMem.operator);
+        calcMem.firstOp = String(operate(Number(calcMem.firstOp),Number(calcMem.secondOp),calcMem.operator));
         calcMem.operator = operatorButton;
         calcMem.secondOp = "";
     }
@@ -128,3 +128,13 @@ function clear () {
 }
 clearButton.addEventListener('click',clear);
     
+function insertDecimal() {
+    if (!calcMem.firstOp.includes(".") && calcMem.secondOp==="" && calcMem.firstOp!=="") {
+        calcMem.firstOp += ".";
+    } else if (calcMem.operator!=="" && calcMem.secondOp!=="" && !calcMem.secondOp.includes(".")) {
+        calcMem.secondOp += ".";
+    }
+    return calcMem;
+}
+
+calcButtonsArea.querySelector(".decimal").addEventListener("click",insertDecimal);
