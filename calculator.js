@@ -24,7 +24,7 @@ for (let i=0;i<16;i++) {
 
 const clearButton = document.createElement("button");
 clearButton.setAttribute("id","clear");
-clearButton.textContent = "Clear Calculator";
+clearButton.textContent = "Clear (Press C)";
 document.body.appendChild(clearButton);
 
 function add (a,b){
@@ -73,6 +73,7 @@ function insertDigit (numberButton) {
     } else {
         calcMem.secondOp += numberButton;
     }
+    calcScreen.textContent = calcMem.firstOp+" "+calcMem.operator+" "+calcMem.secondOp;
     console.log(calcMem);
     return calcMem;
 }
@@ -87,6 +88,7 @@ function insertOperator (operatorButton) {
         calcMem.operator = operatorButton;
         calcMem.secondOp = "";
     }
+    calcScreen.textContent = calcMem.firstOp+" "+calcMem.operator+" "+calcMem.secondOp;
     console.log(calcMem);
     return calcMem;
 }
@@ -94,14 +96,12 @@ function insertOperator (operatorButton) {
 calcButtonsArea.querySelectorAll(".digit").forEach(button => {
     button.addEventListener("click", () => {
         insertDigit(button.textContent);
-        calcScreen.textContent = calcMem.firstOp+" "+calcMem.operator+" "+calcMem.secondOp;
     });
 });
 
 calcButtonsArea.querySelectorAll(".operator").forEach(button => {
     button.addEventListener("click", () => {
         insertOperator(button.textContent);
-        calcScreen.textContent = calcMem.firstOp+" "+calcMem.operator+" "+calcMem.secondOp;
     });
 });
 
@@ -134,6 +134,7 @@ function insertDecimal() {
     } else if (calcMem.operator!=="" && calcMem.secondOp!=="" && !calcMem.secondOp.includes(".")) {
         calcMem.secondOp += ".";
     }
+    calcScreen.textContent = calcMem.firstOp+" "+calcMem.operator+" "+calcMem.secondOp;
     return calcMem;
 }
 
@@ -158,3 +159,32 @@ function deleteInput() {
 }
 
 deleteButton.addEventListener("click",deleteInput);
+
+// Keyboard Support 
+
+addEventListener("keydown",(event) => {
+    if (event.key==="Backspace"){
+        deleteInput();
+    }
+    if (event.key==="c") {
+        clear();
+    }
+    for (let i=0;i<10;i++) {
+        if (event.key === `${i}`) {
+            insertDigit(`${i}`);
+        }
+    }
+    if (event.key === "=") {
+        result();
+    }
+    if (event.key === ".") {
+        insertDecimal();
+    }
+    const operators = "+-*/";
+    for (let operator of operators) {
+        if (event.key === operator) {
+            insertOperator(operator);
+        } 
+    }
+});
+
