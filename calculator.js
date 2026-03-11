@@ -109,3 +109,15 @@ calcButtonsArea.querySelectorAll(".operator").forEach(button => {
     });
 });
 
+function result () {
+    if (!(calcMem.firstOp===""||calcMem.operator===""||calcMem.secondOp==="")) {
+        calcMem.result = operate(Number(calcMem.firstOp),Number(calcMem.secondOp),calcMem.operator);
+        calcMem.firstOp = "", calcMem.secondOp = "" , calcMem.operator = "";
+    }
+    return calcMem;
+}
+
+calcButtonsArea.querySelector(".result").addEventListener("click", () => {
+    result();
+    calcScreen.textContent = calcMem.result;
+});
