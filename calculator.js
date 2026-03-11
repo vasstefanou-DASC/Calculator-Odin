@@ -37,7 +37,7 @@ function multiply (a,b) {
     return a*b;
 }
 function divide (a,b) {
-    return a/b;
+    return b===0?"Learn Math!":(a/b).toFixed(2);
 }
 
 function operate (a,b,operator) {
@@ -46,10 +46,6 @@ function operate (a,b,operator) {
     if (operator==="*") return multiply(a,b);
     if (operator==="/") return divide(a,b);
 }
-
-clearButton.addEventListener('click', () => {
-    calcScreen.textContent = "";
-});
 
 calcButtonsArea.querySelectorAll("button").forEach(button => {
     if ("1234567890".includes(button.textContent)) {
@@ -82,11 +78,11 @@ function insertDigit (numberButton) {
 }
 
 function insertOperator (operatorButton) {
-    if (calcMem.operator==="") {
+    if (calcMem.operator==="" && calcMem.firstOp!=="") {
         calcMem.operator = operatorButton;
-    } else if (calcMem.secondOp==="") {
+    } else if (calcMem.secondOp==="" && calcMem.firstOp!=="") {
         calcMem.operator = operatorButton;
-    } else {
+    } else if (!(calcMem.firstOp===""||calcMem.operator===""||calcMem.secondOp==="")) {
         calcMem.firstOp = operate(Number(calcMem.firstOp),Number(calcMem.secondOp),calcMem.operator);
         calcMem.operator = operatorButton;
         calcMem.secondOp = "";
@@ -113,11 +109,22 @@ function result () {
     if (!(calcMem.firstOp===""||calcMem.operator===""||calcMem.secondOp==="")) {
         calcMem.result = operate(Number(calcMem.firstOp),Number(calcMem.secondOp),calcMem.operator);
         calcMem.firstOp = "", calcMem.secondOp = "" , calcMem.operator = "";
+        calcScreen.textContent = calcMem.result;
+    } else {
+        calcScreen.textContent = calcMem.firstOp+" "+calcMem.operator+" "+calcMem.secondOp;
     }
+    console.log(calcMem);
     return calcMem;
 }
 
 calcButtonsArea.querySelector(".result").addEventListener("click", () => {
     result();
-    calcScreen.textContent = calcMem.result;
 });
+
+function clear () {
+    calcMem.firstOp = "", calcMem.secondOp = "" , calcMem.operator = "", calcMem.result = "";
+    calcScreen.textContent = "";
+    return calcMem;
+}
+clearButton.addEventListener('click',clear);
+    
